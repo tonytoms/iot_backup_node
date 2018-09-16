@@ -11,6 +11,7 @@ import zipfile
 import shutil
 import subprocess
 import socket
+import os
 
 def getNIP():    
     tree = ElementTree.parse("..\configClient.xml")  
@@ -74,7 +75,7 @@ class stubClass(object):
         serv.listen(5)
         #while True:
         conn, addr = serv.accept()
-        utilities.createOrReplace('../temp/receivedFile.zip')
+        utilities.createOrReplace('../temp')
         myfile = open('../temp/receivedFile.zip', 'w')
         while True:
             data = conn.recv(BUFSIZE)
@@ -89,6 +90,8 @@ class stubClass(object):
         utilities.createOrReplace("../files" )
         zip_ref = zipfile.ZipFile("../temp/receivedFile.zip", 'r')
         zip_ref.extractall("../files")
+        shutil.copyfile('../files/configClient.xml', '../configClient.xml')
+        os.remove('../files/configClient.xml')  
         zip_ref.close()
 
 
