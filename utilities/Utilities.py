@@ -17,4 +17,8 @@ def checkExistOrCreate(path):
         return True
     else:
         os.mkdir(path)
-    
+        return True
+def cutPasteFile(source,dest):
+    shutil.copyfile(source, dest)
+    os.remove(dest) 
+        
